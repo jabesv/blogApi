@@ -1,6 +1,4 @@
 const mongoose = require('mongoose')
-const { stringify } = require('querystring')
-const { boolean } = require('webidl-conversions')
 
 const blogSchema = mongoose.Schema({
     created_by: {
@@ -17,14 +15,14 @@ const blogSchema = mongoose.Schema({
         required: true
     },
 
-    blog_cotent: {
+    blog_content: {
         type: String,
         required: true
     },
 
     private: {
-        type: boolean,
-        required: true
+        type: Boolean
+   //     required: true
     }
 })
 

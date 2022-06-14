@@ -11,7 +11,7 @@ module.exports = (req, res, next) => {
     }
     // if we have a token
     try {
-        const decoded = jtw.verfy(token, process.env.SECRET_KEY)
+        const decoded = jwt.verify(token, process.env.SECRET_KEY)
 
         console.log(decoded);
 
