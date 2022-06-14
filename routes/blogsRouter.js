@@ -6,7 +6,7 @@ const authMiddleware = require('../middleware/authMiddleware')
 const router = express.Router()
 
 //* GET BLOGS
-router.get('/', async (req, res) => {   //! add middleware before async
+router.get('/', authMiddleware, async (req, res) => {   //! add middleware before async
     try {
         const blogs = await BlogModel.find()
         res.status(200).json(blogs)
@@ -16,7 +16,7 @@ router.get('/', async (req, res) => {   //! add middleware before async
 })
 
 //* Create BLOGS
-router.post('/', async (req, res) => {  //! add middleware before async
+router.post('/',authMiddleware , async (req, res) => {  //! add middleware before async
     const blogData = req.body // gets the data from te request 
     console.log(blogData)
     try {
@@ -30,7 +30,7 @@ router.post('/', async (req, res) => {  //! add middleware before async
 })
 
 //* Get BLOG by Id
-router.get('/:id', async (req, res) => {   //! add middleware before async
+router.get('/:id', authMiddleware, async (req, res) => {   //! add middleware before async
     const id = req.params.id
 
     try {
@@ -45,7 +45,7 @@ router.get('/:id', async (req, res) => {   //! add middleware before async
 })
 
 //* Update BLOG by ID
-router.put('/:id', async (req, res) => {  //! add middleware before async
+router.put('/:id', authMiddleware, async (req, res) => {  //! add middleware before async
     const id = req.params.id
     const newBlogData = req.body
     try {
@@ -58,7 +58,7 @@ router.put('/:id', async (req, res) => {  //! add middleware before async
 })
 
 //! Delete a Blog
-router.delete('/:id', async (req, res) => {    //! add middleware before async
+router.delete('/:id', authMiddleware , async (req, res) => {    //! add middleware before async
     const id = req.params.id
     try {
         const blog = await BlogModel.findByIdAndDelete(id)
