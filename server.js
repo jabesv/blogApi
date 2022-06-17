@@ -9,7 +9,7 @@ const usersRouter = require('./routes/usersRouter')
 const authRouter = require('./routes/authRouter')
 
 const app = express()
-const PORT = 5002
+const PORT = process.env.PORT || 5002
 
 //* Middlewares
 app.use(express.json())
