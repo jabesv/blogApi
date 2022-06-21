@@ -6,7 +6,6 @@ The API is based on two Schemas to make a dinamic interaction of the variables p
 At the registration of the user the app requires a unique username and email, plus a password that has a minimum of 6 characters.  
 
 
----
 ## Tech 
 
 This API was developed on NodeJS. 
@@ -24,7 +23,9 @@ Tools: Postman
 To run this project you will need to add the following variables to your .env file:
 
 - MONGODB_URI
+- PORT=
 - SECRET_KEY
+
 
 
 ### Run Locally 
@@ -58,30 +59,59 @@ If the connection is made you should see the message:
 
 Server.js provides the root route for the app which is : app.get('/') returning the message "Welcome to the BlogAPI".
 
-User('/users') Provides the functionality to create new users validating the username, email and password.
+The API is segmented in three routes:
+
+- User('/users') Provides the functionality to create new users, validating the username, email and password.
+
+This route is called as follows:
+app.use('/users', usersRouter)
  
-Auth('/auth') Allows the users to login. Checks the username and password, also creates a user id and a token to grant the user the possibility to create, read, update and delete posts.   
 
-Blogs('/blogs') 
-- app.use('/users') Allows to create new users, involving  
-userSchema and hashing the password.  
+- Auth('/auth') Allows the users to login. Checks the username and password, also creates a user id and a token to grant the user the possibility to navigate the API and access the route Blogs and its functionalities.
 
-- app.use('/auth', authRouter)
+This route is called as follows:
+app.use('/auth', authRouter)
 
-- app.use('/blogs', blogsRouter) 
+- Blogs('/blogs') The user after a successful login is authorized to create, read, read by id, update and delete blogs. This authorization consist in a token given by the system which will give access to the CRUD functions.
+
+This route is called as follows:
+app.use('/blogs', blogsRouter)
+
+## Schemas
+
+- User Schema:
+    * username: string, required
+    * email: string, required
+    * birthday: date, required
+    * age: number
+    * password: string, required
+
+- Blog Schema: 
+    * created_by: string, required
+    * created_at: date, default
+    * blog_title: string, required
+    * blog_content: string, required
+    * private: boolean, default
+
+
+## Middleware
+
+Verifies if a token is being used at headers level. If there is no token the access is denied. If a token is available at headers, the middleware makes sure that the token matches, using the the enviromental variables in this security process. Once is clear the access the user can create, read, update and delete blogs. 
+If the token doesn't match the following message is displayed: "Token not valid".
+
+
+## Heroku
+This API has been uploaded to Heroku.com where all the backend funtionality can be tested using Postman. 
+https://jab-blog-api.herokuapp.com/
 
 
 
-Open `a/nice/path/to/a.file` then edit it with your settings. You will need:
+## Upcoming Features
+- More routes:
+  * to list all the users, 
+  * to list private posts,
+- Documentation with Suagger.  
 
-- A setting;
-- Another setting;
-- One more setting;
+=====================================================
 
-## Running the project
-
-    $ yarn start
-
-## Simple build for production
-
-    $ yarn build
+Thank you for checking my Blog API.  
