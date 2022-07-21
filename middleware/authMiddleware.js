@@ -12,7 +12,7 @@ module.exports = (req, res, next) => {
     // if we have a token
     try {
         const decoded = jwt.verify(token, process.env.SECRET_KEY)
-
+        req.user = decoded
         console.log(decoded);
 
         next()

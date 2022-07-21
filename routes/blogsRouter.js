@@ -17,7 +17,8 @@ router.get('/', authMiddleware, async (req, res) => {   //! add middleware befor
 
 //* Create BLOGS
 router.post('/',authMiddleware , async (req, res) => {  //! add middleware before async
-    const blogData = req.body // gets the data from te request 
+    const blogData = req.body // gets the data from te request
+    blogData.user = req.user.id 
     console.log(blogData)
     try {
         const blog = await BlogModel.create(blogData)  // create the blog in the db

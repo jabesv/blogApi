@@ -2,6 +2,7 @@ const express = require('express')
 require('dotenv').config()  // init dotenv
 const morgan = require('morgan')
 const helmet = require('helmet')
+const cors = require('cors')
 
 const mongoConfig = require('./config/mongoConfig')
 const blogsRouter = require('./routes/blogsRouter')
@@ -15,6 +16,7 @@ const PORT = process.env.PORT || 5002
 app.use(express.json())
 app.use(morgan('dev'))
 app.use(helmet())
+app.use(cors())
 
 //* Routers
 app.use('/blogs', blogsRouter)
